@@ -23,38 +23,38 @@ typedef struct Graph
     Edge      **Vertices;
     int       NumVertices;
     int       NumEdges;
-    int 	  cap; //capacity
+    int 		cap; //capacity
     
 } Graph;
 typedef struct MinHeapTuple
 {
-    int v;
-    int distance;
-    
+	int v;
+	int distance;
+
 }MinHeapTuple;
 typedef struct MinHeap
 {
-    int size;
-    int cap;
-    struct MinHeapTuple **arr;
+	int size;
+	int cap;
+	struct MinHeapTuple **arr;
 }MinHeap;
 
 MinHeap* initMinHeap(int capacity){
-    MinHeap* mh = (MinHeap *)malloc(sizeof(MinHeap));
-    mh->size = 0;
-    mh->cap = capacity;
-    mh->arr = (MinHeapTuple**)malloc(capacity*sizeof(MinHeapTuple*));
-    return mh;
-    
+	MinHeap* mh = (MinHeap *)malloc(sizeof(MinHeap));
+	mh->size = 0;
+	mh->cap = capacity;
+	mh->arr = (MinHeapTuple**)malloc(capacity*sizeof(MinHeapTuple*));
+	return mh;
+	
 }
 MinHeapTuple* initNode(int v, int distance){
-    MinHeapTuple* mht = (MinHeapTuple*)malloc(sizeof(MinHeapTuple));
-    mht->v = v;
-    mht->distance = distance;
-    return mht;
+	MinHeapTuple *mht = (MinHeapTuple*)malloc(sizeof(MinHeapTuple));
+	mht->v = v; 
+	mht->distance = distance;
+	return mht;
 }
 int isEmptyMinHeap(MinHeap* mh){
-    return mh->size == 0;
+	return mh->size == 0;
 }
 int AddEdge(Graph *G, int src, int dest, int c, int t){
     Edge *edge = (Edge *)malloc(sizeof(Edge));
@@ -172,7 +172,7 @@ void PrintGraph(Graph *G, char *title, int complete)
     int  v;
     for (v = 0; v < G->NumVertices; ++v)
     {
-        
+   
         
         Edge *edge = G->Vertices[v];
         while (edge != NULL)
@@ -194,7 +194,7 @@ void PrintGraph(Graph *G, char *title, int complete)
     
     for (v = 0; v < G->NumVertices; ++v)
     {
-        
+
         
         Vertex *neighbors = Neighbors(G, v);
         
@@ -211,10 +211,10 @@ void PrintGraph(Graph *G, char *title, int complete)
             
             printf("-1\n");
             
-            
+ 
         }
     }
-    
+   
 }
 
 Graph *CreateGraph(char filename[]){
@@ -222,7 +222,7 @@ Graph *CreateGraph(char filename[]){
     FILE  *pFile;
     int   i;
     int   N;
-    
+
     int src, dest, cost, time;
     pFile = fopen(filename, "r");
     if(pFile == NULL){
@@ -242,14 +242,14 @@ Graph *CreateGraph(char filename[]){
     
     //allocate space for the graph
     G = (Graph *)malloc(sizeof(Graph));
-   
+    G->NumVertices = N;
     G->Vertices = (Edge **)malloc(N * sizeof(Edge *));
     
     //initialize vertices to null
     for(i= 0; i < N; i++)
         G->Vertices[i] = NULL;
     
-    G->NumVertices = N;
+    G->NumVertices = 0;
     G->NumEdges    = 0;
     G->cap         = N;
     
@@ -267,18 +267,18 @@ int main(int argc, char *argv[]) {
     Graph *graph;
     
     int src, dest, budget;
-//    if(argc != 5){
-//        printf("Didn't enter 5 arguments. Exiting...\n");
-//        exit(-1);
-//    }
-//    else{
-         graph = CreateGraph("test.txt");
-    
+   if(argc != 5){
+       printf("Didn't enter 5 arguments. Exiting...\n");
+       exit(-1);
+   }
+   else{
+        graph = CreateGraph(argv[0]);
+        
         PrintGraph(graph, "cpath Graph", 1);
-//        int src = argv[1];
-//        int dest = argv[2];
-//        int budget = argv[3];
-    //}
+        int src = atoi(argv[1]);
+        int dest = atoi(argv[2]);
+        int budget = atoi(argv[3]);
+    }
     
     
     
